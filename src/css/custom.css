@@ -1,0 +1,106 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #359aba;
+  --ifm-color-primary-dark: #29639a;
+  --ifm-color-primary-darker: #275e92;
+  --ifm-color-primary-darkest: #204d78;
+  --ifm-color-primary-light: #3379b6;
+  --ifm-color-primary-lighter: #3580be;
+  --ifm-color-primary-lightest: #3c90d4;
+  --ifm-code-font-size: 95%;
+  --ifm-breadcrumb-border-radius: 0.375rem;
+  --search-local-key-shadow: none;
+  --ifm-footer-background-color: #f5f5f5;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #268dbf;
+  --ifm-color-primary-dark: #2174af;
+  --ifm-color-primary-darker: #1f6ba5;
+  --ifm-color-primary-darkest: #1a5888;
+  --ifm-color-primary-light: #298fd5;
+  --ifm-color-primary-lighter: #3294d8;
+  --ifm-color-primary-lightest: #4fa2dd;
+  --ifm-navbar-background-color: transparent;
+  --ifm-menu-color: rgba(255, 255, 255, 0.5);
+  --search-local-key-shadow: none;
+  --ifm-navbar-search-input-background-color: transparent;
+  --ifm-search-border-color: rgba(255, 255, 255, 0.1);
+  --ifm-toc-border-color: transparent;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .menu__list-item, 
+[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+  color: rgba(255, 255, 255, 0.9)!important;
+}
+
+.footer--dark {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  --ifm-footer-background-color: transparent;
+}
+
+[data-theme='dark'] body {
+  background: #1D1D1D;
+  background: linear-gradient(90deg,rgb(29, 29, 29) 0%, rgb(43, 49, 51) 100%);
+}
+
+[data-theme='dark'] .pagination-nav__link {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pagination-nav__link {
+  background: white;
+}
+
+body {
+  background: #1D1D1D;
+  background: linear-gradient(90deg,rgb(244, 244, 244) 0%, rgb(238, 240, 241) 100%);
+}
+
+.menu__list-item-collapsible {
+  padding: .25rem .5rem;
+  display: flex;
+  align-items: center;
+}
+
+.clean-btn.menu__caret {
+  height: 1.5rem;
+  width: 1.5rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu__caret:before {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1rem 1rem;
+}
+
+
+.DocSearch-Button-Container svg {
+  height: .75rem;
+}
+
+.DocSearch.DocSearch-Button {
+  height: 1.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--ifm-search-border-color);
+}
+
+.DocSearch-Button-Placeholder {
+  font-size: .75rem!important;
+}
+
+.DocSearch-Button-Key {
+  box-shadow: none!important;
+  background: rgba(0,0,0,.5)!important;
+}
