@@ -20,13 +20,173 @@ const sidebars = {
 
   // But you can create a sidebar manually
   /*
-  tutorialSidebar: [
-    'intro',
-    'hello',
+  docs: [
     {
       type: 'category',
-      label: 'Tutorial',
-      items: ['tutorial-basics/create-a-document'],
+      label: 'Introduction',
+      collapsible: true,
+      collapsed: false,
+      items: [
+        'introduction/purpose-of-platform',
+        'introduction/overview',
+        'introduction/platform'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Getting Started',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'getting-started/repository',
+        'getting-started/dependencies',
+        'getting-started/environment-setup',
+        'getting-started/running-locally',
+        'getting-started/coding-standards'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'System Architecture',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'architecture/high-level-system-diagram',
+        'architecture/backend-structure',
+        'architecture/frontend-structure',
+        'architecture/external-systems',
+        'architecture/deployment-and-hosting'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Data Model & Database Schema',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'data-model/er-diagrams',
+        'data-model/data-flow-diagrams',
+        'data-model/entities',
+        'data-model/relationship-overview',
+        'data-model/indexing-strategies'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Permissions Matrix',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'permissions/role-allowed-actions',
+        'permissions/admin-vs-teacher-vs-student',
+        'permissions/branch-specific-restrictions',
+        'permissions/feature-level-permissions'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Core Modules',
+      collapsible: true,
+      collapsed: false,
+      items: [
+        {
+          type: 'category',
+          label: 'Online Administrationssystem',
+          items: [
+            'modules/admin-system/overview',
+            'modules/admin-system/features',
+            'modules/admin-system/key-logic',
+            'modules/admin-system/workflows'
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Online Økonomistyring',
+          items: [
+            'modules/finance-system/overview',
+            'modules/finance-system/features',
+            'modules/finance-system/key-logic',
+            'modules/finance-system/workflows'
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Online Bookingsystem',
+          items: [
+            'modules/booking-system/overview',
+            'modules/booking-system/features',
+            'modules/booking-system/key-logic',
+            'modules/booking-system/workflows'
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Online Undervisningssystem',
+          items: [
+            'modules/learning-system/overview',
+            'modules/learning-system/features',
+            'modules/learning-system/key-logic',
+            'modules/learning-system/workflows'
+          ],
+        },
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'API & Integrations',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'api/internal-api-reference',
+        'api/external-integrations',
+        'api/payment-gateways',
+        'api/accounting-systems',
+        'api/sms-gateway'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Developer Guides',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'developer-guides/add-new-endpoint',
+        'developer-guides/testing-guide',
+        'developer-guides/deployment-guide',
+        'developer-guides/best-practices'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Operations & Maintenance',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'operations/system-monitoring',
+        'operations/logging-and-debugging',
+        'operations/error-handling',
+        'operations/backup-and-recovery'
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Changelog & Versioning',
+      collapsible: true,
+      collapsed: true,
+      items: [
+        'changelog/release-notes',
+        'changelog/version-history',
+        'changelog/deprecation-notices'
+      ],
     },
   ],
    */

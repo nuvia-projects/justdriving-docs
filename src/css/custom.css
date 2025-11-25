@@ -57,6 +57,16 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
+[data-theme='dark'] .navbar__logo img {
+  filter: grayscale(1) brightness(2);
+  
+}
+
+[data-theme='dark'] .navbar {
+  background: #1D1D1D;
+  background: linear-gradient(90deg,rgb(29, 29, 29) 0%, rgb(43, 49, 51) 100%);
+}
+
 .pagination-nav__link {
   background: white;
 }
