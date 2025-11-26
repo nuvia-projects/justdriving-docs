@@ -48,7 +48,7 @@
   --ifm-footer-background-color: transparent;
 }
 
-[data-theme='dark'] body {
+[data-theme='dark'] #__docusaurus {
   background: #1D1D1D;
   background: linear-gradient(90deg,rgb(29, 29, 29) 0%, rgb(43, 49, 51) 100%);
 }
@@ -71,7 +71,7 @@
   background: white;
 }
 
-body {
+ #__docusaurus {
   background: #1D1D1D;
   background: linear-gradient(90deg,rgb(244, 244, 244) 0%, rgb(238, 240, 241) 100%);
 }
