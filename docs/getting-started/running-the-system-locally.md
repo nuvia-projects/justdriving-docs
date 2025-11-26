@@ -15,7 +15,7 @@ CREATE DATABASE just_driving CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 3. Ensure your `.env` file points to this database:
 
-```.env
+```dotenv
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306

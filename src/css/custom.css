@@ -76,6 +76,26 @@
   background: linear-gradient(90deg,rgb(244, 244, 244) 0%, rgb(238, 240, 241) 100%);
 }
 
+.theme-code-block {
+  position: relative;
+  margin-top: 40px;
+}
+.theme-code-block.language-bash:before,
+.theme-code-block.language-dotenv:before,
+.theme-code-block.language-mysql:before {
+  content: 'bash';
+  position: absolute;
+  display: block;
+  bottom: 100%;
+  background: inherit;
+  padding: 0 1rem;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+}
+.theme-code-block.language-dotenv:before { content: '.env'; }
+.theme-code-block.language-mysql:before { content: 'MySQL'; }
+
+
 .menu__list-item-collapsible {
   padding: .25rem .5rem;
   display: flex;
