@@ -2,85 +2,76 @@
 sidebar_position: 4
 ---
 
-# Running the system locally
+# Running Locally
 
-This section describes how to start the Just Driving platform on your own machine once dependencies and the environment are set up.
+This page focuses on the day-to-day commands used to run the Just Driving application in a local development environment. It assumes you have already completed the steps in the **Dependencies** and **Environment Setup** guides.
 
-## 1. Start MySQL
+## Starting the web application
 
-1. Make sure your local MySQL server is running.
-2. Create a database (if it does not already exist), for example:
-```mysql
-CREATE DATABASE just_driving CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-3. Ensure your `.env` file points to this database:
+The recommended way to run the application locally is using Laravel Herd.
 
-```dotenv
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=just_driving
-DB_USERNAME=your_mysql_user
-DB_PASSWORD=your_mysql_password
-```
+1. Make sure Laravel Herd is installed and running.
+2. Add a new site in Herd pointing to the project's `public/` directory, for example:
 
-## 2. Run migrations (and seeders)
+   - Project path: `/path/to/justdriving`
+   - Public directory: `/path/to/justdriving/public`
+   - Local domain: `justdriving.test`
 
-From the project root:
-
-
+3. Ensure the configured domain matches `APP_URL` in your `.env` file:
 ```bash
-php artisan migrate
-php artisan db:seed
+APP_URL=http://justdriving.test
 ```
 
-## 3. Build frontend assets
+4. Open `http://just-driving.test` in your browser to access the application.
 
-Because the project uses Laravel Mix with Webpack:
-
-
-```bash
-npm run dev # for development
-```
-```bash
-npm run watch # during active development
-```
-```bash
-npm run production # for a production-like build
-```
-
-
-## 4. Serve the application
-
-### Option A: Laravel Herd (recommended)
-
-1. Ensure the project is in a directory managed by Laravel Herd.
-2. Configure the project domain in Herd (for example `just-driving.test`).
-3. Open the URL in your browser: http://justdriving.test
-
-Herd will automatically point this domain to the `public` directory.
-
-### Option B: Artisan serve
-
-From the project root:
+If you prefer not to use Herd, you can alternatively run:
 ```bash
 php artisan serve
 ```
-**OR**
+
+and use the URL shown in the console, but Herd is the recommended approach.
+
+## Running the queue worker
+
+Background jobs (such as sending notifications and other asynchronous tasks) are processed via a Laravel queue worker. For local development you should have at least one worker running.
+
+From the project root:
 ```bash
-herd php artisan serve
+php artisan queue:work
 ```
 
-Then open: http://127.0.0.1:8000
+Keep this process running in a separate terminal window or tab while you develop. If you change queue configuration or environment variables related to queues, restart the worker.
+
+## Running frontend assets
+
+For frontend development, you should run the asset build tool in watch mode so changes are recompiled automatically:
+```bash
+npm run watch
+```
+
+This will:
+
+- Compile the CSS and JavaScript assets.
+- Rebuild them when source files change.
+
+If you just need a one-time build (for example, before a test run), you can use:
+```bash
+npm run dev
+```
+
+
+## Logging in locally
+
+Local environments typically use seeded or test users (for example, admin, teacher, and student accounts) created by migrations, seeders, or manual setup. Because credentials can change over time, they are not hard-coded in this documentation.
+
+To find or create users in a local environment, you can:
+
+- Check any database seeders provided by the project.
+- Use the application’s registration or admin screens to create test accounts.
+- Create users manually via database tools or framework commands if necessary.
+
+Your team’s internal onboarding or secure channels should provide the current default test credentials, if they exist. Use those credentials to log in via the normal login screens at your local application URL.
 
 
 
-### 5. Verify the application
 
-- Log in with a known user (admin/teacher/student) or create a test user if the flows support it.
-- Confirm that:
-  - The homepage loads without errors.
-  - Basic routes (dashboard, login, etc.) work.
-  - Database reads/writes (e.g. creating a test entity) succeed.
-
-If you want, the next section can be “Configuration files and .env variables” or “Build & deployment process”.

@@ -4,48 +4,65 @@ sidebar_position: 2
 
 # Dependencies
 
-The Just Driving platform is a Laravel (PHP 7.*) application using Laravel Mix with Webpack for asset compilation and MySQL as the only supported database engine.
+This page lists the main system and application dependencies required to run the Just Driving platform in a development or production environment. New developers should make sure their local setup matches these requirements before trying to run the project.
 
-## Core runtime and system dependencies
+## Core runtime
 
-- PHP 7.* (exact version as required by `composer.json`, e.g. 7.4).
-- Web server: Apache, Nginx, or Laravel Herd, configured to serve the `public/` directory.
-- Database server: MySQL (no MariaDB).
-- Composer: For installing and updating PHP packages.
-- Node.js and npm: For running Laravel Mix/Webpack builds.
-- Git: For source control and deployments.
+Just Driving is built as a Laravel-based PHP application and depends on the following core runtime components:
 
-## PHP (Composer) dependencies
+- **PHP**  
+  PHP 7.x (CLI and FPM) with common extensions enabled (for example: `pdo_mysql`, `mbstring`, `openssl`, `json`, `curl`, `xml`, `tokenizer`, `ctype`, `bcmath`).
 
-Typical categories for this Laravel project:
+- **Laravel**  
+  The application is built on Laravel 8 (`laravel/framework: ^8.0`).
 
-- `laravel/framework` – Core Laravel framework.
-- Database & ORM – Eloquent using the MySQL driver (`DB_CONNECTION=mysql`).
-- Authentication / authorization – Laravel’s built-in auth plus any role/permission packages you add.
-- Mail / notifications – Laravel mail and notification components and any mail/SMS/API SDKs.
-- HTTP client – For integrations with external services (e.g. a client like Guzzle).
-- Utility packages – Logging, dates, file handling, PDF/Excel exports, queues, etc., depending on what you’ve included.
+- **Composer**  
+  Composer is required to install and update PHP and Laravel dependencies.
 
-The exact list and versions are defined in `composer.json` under `require` and `require-dev`.
+- **Web server**  
+  For **local development**, Laravel Herd is the recommended web server and PHP runtime.  
+  For **staging and production**, a traditional web server such as Nginx or Apache is typically used to serve the application behind PHP-FPM.
 
-## JavaScript (npm) and Laravel Mix / Webpack
+## Data stores
 
-Because the project uses Laravel Mix with Webpack:
+The application relies on the following data stores:
 
-- `laravel-mix` – Abstraction layer over Webpack for defining build steps.
-- `webpack` and loaders/plugins – For bundling JS, CSS, and other assets.
-- Frontend framework (if used) – For example `vue` / `vue-template-compiler` or `react` and related packages.
-- CSS framework & tooling – For example Tailwind or Bootstrap, plus Sass/Less and PostCSS tooling.
-- Developer tooling – Linters and test tools, such as `eslint`, `prettier`, or `jest`, if configured.
+- **Database (MySQL)**  
+  A MySQL database server is required as the primary data store for schools, students, teachers, bookings, finances, and other entities. Both development and production environments must use MySQL.
 
-The exact JS dependencies are defined in `package.json` under `dependencies` and `devDependencies`.
+- **Redis (queues and caching)**  
+  Redis is used as a backend for queues (and optionally caching). Queued jobs are used for tasks like sending notifications and handling background work so the HTTP layer stays responsive.
 
-Common asset commands:
+## Frontend tooling
 
-```bash
-npm run dev # development build
-npm run watch # watch mode during development
-npm run production # optimized build for production
-```
+The project uses a standard Laravel front-end build pipeline:
 
+- **Node.js and npm (or Yarn)**  
+  Used to install and build front-end assets (JavaScript, CSS).  
+  Make sure to use a Node.js version compatible with the front-end tooling defined in the project (see `package.json`).
 
+- **Build tool (Laravel Mix or similar)**  
+  Front-end assets are compiled using Laravel's build tooling (for example, Laravel Mix).  
+  The usual commands such as `npm install`, `npm run dev`, and `npm run prod` (or the equivalent) are used during development and deployment.
+
+## External services
+
+In addition to core runtime and data stores, Just Driving integrates with several external services. Configuration for these services is managed via environment variables and the framework configuration files.
+
+- **Mail provider (Mailtrap for development, SparkPost for production)**  
+  For development and testing, Mailtrap is recommended so outgoing emails are captured in a safe inbox.  
+  For production, SparkPost is used as the mail provider. SparkPost API/SMTP credentials are configured via environment variables.
+
+- **SMS provider (Twilio)**  
+  Twilio is used to send SMS notifications to students and teachers. The application requires Twilio credentials (account SID, auth token, and sender number) configured via environment variables.
+
+- **Payment provider (Stripe)**  
+  Stripe is used as the payment gateway for handling online payments and payment registrations. API keys and webhook configuration are managed via environment variables and Stripe’s dashboard.
+
+## Developer tools
+
+For local development, the following tools are expected:
+
+- **Git** for version control and working with the central repository.
+- A local PHP development environment (for example, Laravel Herd or a Docker-based stack with PHP/MySQL/Redis).
+- A code editor or IDE with good PHP/Laravel support.

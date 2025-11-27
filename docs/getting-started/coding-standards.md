@@ -2,59 +2,85 @@
 sidebar_position: 5
 ---
 
-# Coding standards
+# Coding Standards
 
-This project follows common Laravel/PHP 7 conventions to keep the codebase readable and maintainable. Treat these as defaults unless explicitly documented otherwise in the repo.
+This page describes the basic coding conventions used in the Just Driving project. The goal is not to enforce a strict style guide, but to give new developers a clear idea of how controllers, routes, and views are typically organized and how to keep new code consistent with the existing codebase.
 
-## General code style
+## Controller and view structure
 
-- Follow PSR-style conventions for PHP (PSR-1/PSR-12 style: braces on new line for classes, same line for control structures, 4-space indentation).
-- Use strict typing where possible (`declare(strict_types=1);` at the top of new files if the project is already using it).
-- Prefer early returns over deeply nested `if` / `else` chains.
-- Keep controllers thin; move complex logic to services, actions, or domain classes.
-- Avoid “God classes”; split responsibilities into smaller, focused classes.
+Controllers (and matching views) are organized by area of responsibility:
 
-## Naming conventions
+- `App\Http\Controllers\Admin`  
+  Controllers for the global admin area (platform administration, high-level configuration, etc.).
 
-- Classes: `PascalCase` (e.g. `StudentController`, `BookingService`, `DrivingSchoolRepository`).
-- Interfaces: `PascalCase` with `Interface` suffix only if needed (e.g. `PaymentGatewayInterface`).
-- Methods and functions: `camelCase` (e.g. `createBooking`, `sendReminderEmail`).
-- Variables and properties: `camelCase` (e.g. `$drivingSchool`, `$lessonCount`, `$bookingRequest`).
-- Database tables: plural `snake_case` (e.g. `driving_schools`, `students`, `lesson_bookings`).
-- Columns: `snake_case` (e.g. `first_name`, `lesson_date`, `driving_school_id`).
-- Route names: `snake_case` or `dot.notation` describing resource and action (e.g. `students.index`, `bookings.store`).
-- Config keys and env keys: `UPPER_SNAKE_CASE` for env (`APP_ENV`, `DB_HOST`), `snake_case` for config array keys (`default_driver`, `queue_connection`).
+- `App\Http\Controllers\Api`  
+  Controllers that expose API endpoints, typically returning JSON responses for internal or external integrations.
 
-## Laravel-specific patterns
+- `App\Http\Controllers\School`  
+  Controllers for features used by school staff (school owners, office staff, teachers acting inside a given school).
 
-- Controllers:
-  - Use RESTful controllers for resources (`index`, `show`, `store`, `update`, `destroy`).
-  - Use dedicated controllers for clearly separated areas (e.g. `Admin\StudentController`, `Teacher\LessonController`).
-- Models:
-  - One Eloquent model per table, named in singular `PascalCase` (e.g. `Student`, `DrivingSchool`, `LessonBooking`).
-  - Put relationships (`hasMany`, `belongsTo`, etc.) directly on models.
-- Form requests:
-  - Use custom `FormRequest` classes for validation instead of in-controller `validate()` when rules are non-trivial.
-- Services / actions:
-  - Extract non-trivial business logic into service classes or “action” classes (e.g. `CreateBookingAction`, `SyncStudentFromFindKoreskole`).
-  - Keep service method names descriptive (e.g. `handle`, `execute`, or domain-specific verbs).
+- `App\Http\Controllers\Student`  
+  Controllers for the logged-in student experience (student dashboard, bookings, payments, progress view, etc.).
 
-## Frontend (Laravel Mix / Webpack) conventions
+- `App\Http\Controllers\Web`  
+  Controllers for public-facing pages that do not require authentication (marketing pages, public signups, landing pages, etc.).
 
-- JavaScript:
-  - Use `camelCase` for variables and functions, `PascalCase` for components (e.g. `LessonCalendar.vue`).
-  - Keep each component focused; avoid very large, multi-purpose components.
-  - Organize code under folders like `resources/js/components`, `resources/js/pages`, `resources/js/services`.
-- CSS/Sass:
-  - Prefer utility-first or BEM-style naming if not using a utility framework.
-  - Keep global styles small; prefer component-scoped styles where possible.
+Blade views follow the same structure so that each controller area has a matching view directory. For example:
 
-## Comments and documentation
+- `resources/views/admin/...`
+- `resources/views/school/...`
+- `resources/views/student/...`
+- `resources/views/web/...`
 
-- Prefer self-explanatory names over excessive comments.
-- Use PHPDoc on public methods when:
-  - The intent, parameters, or return type are not obvious.
-  - There are important side effects to document.
-- Keep TODOs actionable with a clear description or ticket reference.
+When adding new features, place controllers and views in the area that matches the primary user of that functionality.
+
+## RESTful controller actions
+
+Controllers generally follow a REST-style convention for resourceful endpoints. The typical actions are:
+
+- `index` – list resources.
+- `show` – show a single resource.
+- `create` – show the form for creating a new resource.
+- `store` – handle creation of a new resource.
+- `edit` – show the form for editing an existing resource.
+- `update` – handle updates to an existing resource.
+- `destroy` – delete or deactivate a resource.
+
+When possible:
+
+- Use these standard action names instead of custom names.
+- Group related routes using resource controllers or route groups.
+- Keep controller methods focused on coordinating requests and responses, and avoid putting complex domain logic directly in controllers where it becomes hard to test or reuse.
+
+## Routes and areas
+
+Routes are typically grouped by area to match the controller structure:
+
+- Admin routes → `Admin` controllers.
+- API routes → `Api` controllers.
+- School routes → `School` controllers.
+- Student routes → `Student` controllers.
+- Public routes → `Web` controllers.
+
+When adding new routes:
+
+- Place them in the route file that fits the audience and authentication requirements (for example: web routes for Blade views, API routes for JSON-only endpoints).
+- Point them to the appropriate controller namespace (`Admin`, `School`, `Student`, `Web`, or `Api`).
+
+## General PHP/Laravel conventions
+
+There is no strict external style guide enforced (such as PSR-12 tooling), but new code should:
+
+- Follow Laravel’s common patterns and naming conventions (for example, Eloquent models in `App\Models`, controllers in `App\Http\Controllers`, etc.).
+- Use clear, descriptive names for classes, methods, and variables.
+- Keep controllers reasonably small; if a controller action becomes very complex, consider extracting parts of the logic into dedicated classes (services, jobs, actions) to keep things maintainable.
+
+## Git and workflow
+
+There is no tightly enforced Git workflow documented here, but in general:
+
+- Use feature branches for new work.
+- Keep commits focused and write short, descriptive commit messages.
+- Make sure new changes fit the existing controller/view structure and REST conventions.
 
 
