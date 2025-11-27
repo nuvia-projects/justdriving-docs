@@ -2,65 +2,80 @@
 sidebar_position: 2
 ---
 
-# Backend structure
+# Backend Structure
 
-The backend for Just Driving is a Laravel (PHP 7.*) application organized using standard Laravel conventions, with additional separation for business logic and integrations. This section describes the main backend layers and how they fit together.
+This page describes how the backend of Just Driving is structured. It focuses on the main Laravel components (controllers, models, jobs, etc.) and how they are organized into areas that match the different users and features of the system.
 
-## Core Laravel directories
+## Overview
 
-- `app/Models`  
-  - Eloquent models for core entities such as `Student`, `DrivingSchool`, `Lesson`, `Booking`, `User`.  
-  - Defines relationships (e.g. `DrivingSchool hasMany Lesson`, `Student hasMany Booking`).
+The backend is a Laravel 8 application. It follows Laravel’s standard directory layout, with some additional structure around controllers and views to separate concerns by user type and area of the system.
 
-- `app/Http/Controllers`  
-  - Controllers handling HTTP requests for Admin, Teacher, and Student areas.  
-  - Typically grouped by area, for example:
-    - `App\Http\Controllers\Admin\*`
-    - `App\Http\Controllers\Teacher\*`
-    - `App\Http\Controllers\Student\*`
+At a high level:
 
-- `app/Http/Middleware`  
-  - Middleware for authentication, authorization, role checks, and common web concerns.  
-  - Example: role-based middleware to restrict admin routes to admin users.
+- Controllers are grouped into namespaces based on who uses a given part of the system (Admin, School, Student, Web, Api).
+- Views follow the same grouping so it is easy to find the templates that belong to a given controller.
+- REST-style controllers are used where possible, with conventional actions like `index`, `show`, `create`, `store`, `edit`, `update`, and `destroy`.
 
-- `routes/web.php`  
-  - Web routes for dashboards, management screens, booking flows, etc.  
-  - May use route groups for prefixes like `/admin`, `/teacher`, `/student` with corresponding middleware.
+## Controllers
 
-- `routes/api.php` (if used)  
-  - API endpoints (e.g. for AJAX calls, future integrations, or mobile apps).
+Controllers live under `App\Http\Controllers` and are grouped by area:
 
-## Application and domain logic
+- `App\Http\Controllers\Admin`  
+  Controllers for the global admin area (platform administration and configuration).
 
-Depending on how you’ve structured your code, you can document:
+- `App\Http\Controllers\Api`  
+  Controllers that expose JSON APIs for internal and external integrations.
 
-- `app/Services`  
-  - Application services that coordinate complex operations (e.g. `BookingService`, `DrivingSchoolService`).  
-  - Used by controllers to keep them thin and focused.
+- `App\Http\Controllers\School`  
+  Controllers for features used by school staff (school owners, office staff, teachers under a school).
 
-- `app/Actions` or `app/UseCases` (if you use them)  
-  - Single-purpose classes for specific operations (e.g. `CreateBooking`, `AssignTeacherToStudent`).  
-  - Help make business flows explicit and testable.
+- `App\Http\Controllers\Student`  
+  Controllers for the student-facing part of the application (student dashboards, bookings, payments).
 
-- `app/Repositories` (if present)  
-  - Abstraction over Eloquent queries for more complex read logic.  
-  - For example `BookingRepository` or `DrivingSchoolRepository`.
+- `App\Http\Controllers\Web`  
+  Controllers for public-facing pages that do not require authentication (marketing pages, public signup flows, etc.).
 
-## Integrations and external platforms
+New controllers should be placed in the namespace that matches the primary user and route area they serve.
 
-- `app/Services/Integrations` or similar  
-  - Classes encapsulating communication with external systems:
-    - `e-teori.dk` (theory practice platform).
-    - `findkoreskole.dk` (driving school discovery).  
-  - Typically use an HTTP client (e.g. Guzzle) and expose clear methods like `syncStudent`, `sendLead`, etc.
+## Views
 
-## Supporting layers
+Views are implemented using Blade templates and are structured to mirror the controller namespaces:
 
-- `database/migrations`  
-  - Migrations that define the schema for users, schools, lessons, bookings, etc.
+- `resources/views/admin/...`
+- `resources/views/school/...`
+- `resources/views/student/...`
+- `resources/views/web/...`
 
-- `database/seeders`  
-  - Seeders for initial test data (e.g. demo schools, demo users).
+When you add a new controller action that returns a view, its template should be placed in the matching directory so it is easy to locate from the controller.
 
-- `app/Console` (optional)  
-  - Artisan commands for recurring tasks (e.g. sending reminders, syncing external data).
+## Models and domains
+
+Eloquent models represent the main business entities in the database, such as:
+
+- Schools, departments, teachers, and students.
+- Bookings, booking types, and classes.
+- Lesson plans, modules, pensum, and education content.
+- Invoices, invoice items, student balances, and payments.
+- Notifications and settings for email/SMS.
+
+Models live under `App\Models` (or `App\` in older parts of the codebase) and are linked together using Eloquent relationships (for example, a school has many students and teachers, a student has many bookings and invoices, etc.). When adding new logic, prefer to reuse existing models and relationships instead of duplicating queries.
+
+## Jobs, events, and queues
+
+Background work is handled using Laravel’s queue system (with Redis as the queue backend). Typical use cases include:
+
+- Sending emails and SMS notifications.
+- Processing asynchronous tasks that should not block HTTP requests.
+
+Jobs normally live under `App\Jobs`, and may be dispatched from controllers, event listeners, or model hooks. When you introduce work that is potentially slow or external (e.g. network calls), consider wrapping it in a job and running it via the queue.
+
+## Configuration and services
+
+Configuration for external services (Twilio, Stripe, Mailtrap, SparkPost, etc.) is managed via environment variables (`.env`) and Laravel config files in `config/`. Service classes, if present, wrap third-party SDKs or APIs to keep controllers and jobs focused on application logic rather than low-level integration details.
+
+When adding new integrations:
+
+- Add configuration keys under `config/` and `.env.example`.
+- Encapsulate external API calls in dedicated classes or services.
+- Use jobs where appropriate so slow calls are done in the background.
+

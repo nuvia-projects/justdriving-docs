@@ -1,159 +1,113 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 ---
 
-# ER diagram
+# ER Diagrams
+
+This page shows entity–relationship (ER) diagrams for the most important parts of the Just Driving data model. The goal is to give developers a visual view of how entities connect, complementing the textual descriptions from the Entities and Relationship Overview pages.
+
+## Schools, departments, teachers, and students
+
+This diagram focuses on how schools, departments, teachers, and students are linked.
+
+
 
 ```mermaid
 erDiagram
-    USERS {
-        bigint id PK
-        string name
-        string email
-        string password
-        string type
-        timestamps timestamps
-    }
-    SCHOOLS {
-        bigint id PK
-        string name
-        string cvr
-        string email
-        string phone
-        string address
-        string zip
-        string city
-        timestamps timestamps
-    }
+    SCHOOL ||--o{ SCHOOL_DEPARTMENT : has
+    SCHOOL ||--o{ SCHOOL_TEACHER : has
+    SCHOOL ||--o{ SCHOOL_STUDENT : has
+    SCHOOL_DEPARTMENT ||--o{ SCHOOL_CLASS : has
+    SCHOOL_DEPARTMENT ||--o{ SCHOOL_TEACHER : has
+    SCHOOL_DEPARTMENT ||--o{ STUDENT : groups
 
-    SCHOOL_DEPARTMENTS {
-        bigint id PK
-        bigint school_id FK
-        string name
-        string email
-        string dial_code
-        string phone
-        string address
-        string zip
-        string city
-        timestamps timestamps
-    }
+    SCHOOL_TEACHER }o--|| TEACHER : links
+    SCHOOL_STUDENT }o--|| STUDENT : links
 
-    SCHOOL_CLASSES {
-        bigint id PK
-        bigint school_id FK
-        string name
-        int max_students
-        date start_date
-        time start_time
-        time end_time
-        int price
-        int signup_fee
-        bigint school_department_id FK
-        bigint teacher_id FK
-        bigint lesson_plan_id FK
-        string status
-        date completed_date
-        string category
-        timestamps timestamps
-    }
-
-    SCHOOL_CLASS_STUDENT {
-        bigint id PK
-        bigint school_class_id FK
-        bigint student_id FK
-        timestamps timestamps
-    }
-
-    STUDENTS {
-        bigint id PK
-        bigint school_id FK
-        string first_name
-        string last_name
-        string email
-        string dial_code
-        string phone
-        date birthdate
-        string address
-        string zip
-        string city
-        timestamps timestamps
-    }
-
-    TEACHERS {
-        bigint id PK
-        bigint school_id FK
-        string first_name
-        string last_name
-        string email
-        string dial_code
-        string phone
-        timestamps timestamps
-    }
-
-    BOOKINGS {
-        bigint id PK
-        bigint school_id FK
-        bigint teacher_id FK
-        bigint school_class_id FK
-        bigint booking_type_id FK
-        datetime start
-        datetime end
-        string status
-        string location
-        timestamps timestamps
-    }
-
-    BOOKING_STUDENT {
-        bigint id PK
-        bigint booking_id FK
-        bigint student_id FK
-        timestamps timestamps
-    }
-
-    BOOKING_TYPES {
-        bigint id PK
-        bigint school_id FK
-        string name
-        string category
-        int duration
-        int price
-        timestamps timestamps
-    }
-
-    RATINGS {
-        bigint id PK
-        bigint school_id FK
-        bigint student_id FK
-        bigint rating
-        text comment
-        timestamps timestamps
-    }
-
-    %% Relationships
-
-    SCHOOLS ||--o{ SCHOOL_DEPARTMENTS : "has many"
-    SCHOOLS ||--o{ SCHOOL_CLASSES : "has many"
-    SCHOOLS ||--o{ STUDENTS : "has many"
-    SCHOOLS ||--o{ TEACHERS : "has many"
-    SCHOOLS ||--o{ BOOKINGS : "has many"
-    SCHOOLS ||--o{ BOOKING_TYPES : "has many"
-    SCHOOLS ||--o{ RATINGS : "has many"
-
-    SCHOOL_DEPARTMENTS ||--o{ SCHOOL_CLASSES : "has many"
-
-    SCHOOL_CLASSES ||--o{ SCHOOL_CLASS_STUDENT : "has many"
-    SCHOOL_CLASS_STUDENT }o--|| STUDENTS : "belongs to"
-    SCHOOL_CLASSES }o--|| TEACHERS : "taught by"
-
-    STUDENTS ||--o{ BOOKING_STUDENT : "has many"
-    TEACHERS ||--o{ BOOKINGS : "has many"
-
-    BOOKINGS ||--o{ BOOKING_STUDENT : "has many students"
-    BOOKINGS }o--|| SCHOOL_CLASSES : "optional class"
-    BOOKINGS }o--|| BOOKING_TYPES : "type"
-
-    STUDENTS ||--o{ RATINGS : "writes"
-    SCHOOLS ||--o{ RATINGS : "receives"
+    SCHOOL ||--o{ SCHOOL_CLASS : has
+    SCHOOL_CLASS }o--o{ STUDENT : enrolls
 
 ```
+
+- A school can have many departments, teachers, students, and classes.  
+- Departments group classes, teachers, and students under a school.  
+- Link tables connect teachers and students to schools so a person can be associated with more than one school if needed.
+
+## Classes, bookings, and lesson plans
+
+This diagram shows how classes, bookings, booking types, lesson plans, and modules connect.
+
+```mermaid
+erDiagram
+    SCHOOL ||--o{ SCHOOL_CLASS : has
+    SCHOOL ||--o{ BOOKING : has
+    SCHOOL ||--o{ LESSON_PLAN : has
+    SCHOOL ||--o{ BOOKING_TYPE : has
+    SCHOOL_CLASS ||--o{ SCHOOL_CLASS_STUDENT : has
+    SCHOOL_CLASS_STUDENT }o--|| STUDENT : links
+
+    SCHOOL_CLASS }o--|| LESSON_PLAN : uses
+
+    BOOKING }o--|| SCHOOL : belongs_to
+    BOOKING }o--|| TEACHER : taught_by
+    BOOKING }o--|| BOOKING_TYPE : of_type
+
+    BOOKING ||--o{ BOOKING_STUDENT : has
+    BOOKING_STUDENT }o--|| STUDENT : attends
+
+    LESSON_PLAN ||--o{ LESSON_PLAN_MODULE : has
+    LESSON_PLAN_MODULE ||--o{ LESSON_PLAN_MODULE_PENSUM : covers
+    LESSON_PLAN_MODULE_PENSUM }o--|| PENSUM : references
+
+```
+
+
+- Classes link students to a specific course/lesson plan.  
+- Bookings represent concrete scheduled events and are typed via booking types.  
+- Lesson plans and modules structure the educational content and are connected to bookings and classes via configuration and usage.
+
+## Finance: invoices, payments, and balances
+
+This diagram focuses on the core financial entities.
+
+```mermaid
+erDiagram
+    SCHOOL ||--o{ STUDENT_INVOICE : has
+    SCHOOL ||--o{ STUDENT_PAYMENT : has
+    SCHOOL ||--o{ INVOICE_SERVICE : offers
+    SCHOOL ||--o{ STUDENT_BALANCE : tracks
+    STUDENT ||--o{ STUDENT_INVOICE : billed
+    STUDENT ||--o{ STUDENT_PAYMENT : pays
+    STUDENT ||--o{ STUDENT_BALANCE : has
+
+    STUDENT_INVOICE ||--o{ STUDENT_INVOICE_DATA : has
+    STUDENT_INVOICE_DATA }o--|| INVOICE_SERVICE : describes
+
+    STUDENT_INVOICE ||--o{ STUDENT_PAYMENT : settled_by
+```
+
+
+- Each school issues invoices and receives payments; these are tied to students.  
+- Invoice data (line items) describes what a student is billed for, often referencing invoice services.  
+- Student balances summarize the net financial position for each student.
+
+## Education, pensum, and signatures
+
+This diagram shows how lesson plans tie into pensum and signatures.
+
+```mermaid
+erDiagram
+    LESSON_PLAN ||--o{ LESSON_PLAN_MODULE : has
+    LESSON_PLAN_MODULE ||--o{ LESSON_PLAN_MODULE_PENSUM : covers
+    LESSON_PLAN_MODULE_PENSUM }o--|| PENSUM : references
+    PENSUM }o--|| PENSUM_PART : belongs_to
+    LESSON_PLAN_MODULE ||--o{ LESSON_PLAN_MODULE_SIGNATURE : signed
+    LESSON_PLAN_MODULE_SIGNATURE }o--|| STUDENT : by_student
+    LESSON_PLAN_MODULE_SIGNATURE }o--|| TEACHER : by_teacher
+    LESSON_PLAN_MODULE_SIGNATURE }o--|| SCHOOL_CLASS : in_class
+```
+
+
+- Pensum and pensum parts represent curriculum requirements.  
+- Lesson plan modules reference pensum entries to ensure the required content is covered.  
+- Signatures create an audit trail showing which student and teacher signed off each module and in which class.

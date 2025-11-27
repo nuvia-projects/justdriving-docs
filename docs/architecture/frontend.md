@@ -2,64 +2,58 @@
 sidebar_position: 3
 ---
 
-# Frontend structure
+# Frontend Structure
 
-The frontend for Just Driving is built on top of Laravel’s asset pipeline using Laravel Mix with Webpack. All frontend source code lives under the `resources/` directory and is compiled to the `public/` directory for the browser.
+This page describes how the frontend of Just Driving is structured, including the organization of Blade templates, the approach to CSS and JavaScript, and how frontend assets are built and served.
 
-## Directory layout
+## Overview
 
-- `resources/views/`
-  - Blade templates (or layout shells) used to render server-side HTML.
-  - Typically contains:
-    - Layouts (e.g. `layouts/app.blade.php`).
-    - Entry points for different areas: admin, teacher, student dashboards, authentication pages, etc.
-  - Often used to bootstrap a JS app (e.g. mounting a Vue/React root component).
+The frontend of Just Driving is built primarily using Laravel Blade templates for server-rendered views. JavaScript and CSS are used to add interactivity and styling on top of the Blade views. Assets are compiled and bundled using Laravel Mix (or a similar build tool) and are typically run with `npm run watch` during development.
 
-- `resources/js/`
-  - Main JavaScript SPA or page logic.
-  - Common structure:
-    - `resources/js/app.js` – main entry file referenced by Laravel Mix.
-    - `resources/js/components/` – reusable UI components (e.g. `LessonList`, `BookingForm`, `StudentTable`).
-    - `resources/js/pages/` – page-level components/views (e.g. `AdminDashboard`, `TeacherSchedule`, `StudentDashboard`).
-    - `resources/js/services/` or `api/` – wrappers for HTTP calls to backend routes (e.g. booking API, school search).
-    - `resources/js/store/` – state management (Vuex/Pinia/Redux/etc.) if used.
+## Blade views
 
-- `resources/css/` or `resources/sass/`
-  - Stylesheets used by Laravel Mix.
-  - Can contain:
-    - Global styles (e.g. `app.css` / `app.scss`).
-    - Partial files for components, layout, and utilities.
-    - Configuration for CSS frameworks (e.g. Tailwind/Bootstrap).
+Blade templates live under `resources/views` and are organized by area to match the controller namespaces:
 
-## Entry points and bundling
+- `resources/views/admin/` – views for the admin area.
+- `resources/views/school/` – views for school staff and teachers.
+- `resources/views/student/` – views for the student dashboard and features.
+- `resources/views/web/` – views for public-facing pages.
 
-- Laravel Mix configuration in `webpack.mix.js` defines how assets are built, for example:
+Within each directory, views typically match REST controller actions:
 
-  - Compiling JS:
-    - `resources/js/app.js` → `public/js/app.js`
-  - Compiling CSS/SCSS:
-    - `resources/css/app.css` or `resources/sass/app.scss` → `public/css/app.css`
+- `index.blade.php` for list views.
+- `show.blade.php` for detail views.
+- `create.blade.php` and `edit.blade.php` for form views.
 
-- Blade templates include the compiled assets, e.g.:
-  - `<link rel="stylesheet" href="{{ mix('css/app.css') }}">`
-  - `<script src="{{ mix('js/app.js') }}" defer></script>`
+Blade layouts and partials (shared headers, footers, sidebars, etc.) are often placed in `resources/views/layouts/` or a similar directory to keep common markup reusable across different areas of the site.
 
-## Role-based UI structure (recommended)
+## JavaScript and CSS
 
-To keep the UI maintainable around Admin, Teacher, and Student roles, it is recommended to group views/components:
+JavaScript and CSS source files are kept under `resources/` (for example, `resources/js/` and `resources/css/` or `resources/sass/`).
 
-- Admin:
-  - `resources/js/pages/admin/*`
-  - `resources/js/components/admin/*`
-- Teacher:
-  - `resources/js/pages/teacher/*`
-  - `resources/js/components/teacher/*`
-- Student:
-  - `resources/js/pages/student/*`
-  - `resources/js/components/student/*`
+- **JavaScript** is typically written in plain JavaScript or using a lightweight framework/library where needed (for example, Vue.js components in some sections if that is part of your setup).
+- **CSS** may be written using plain CSS, Sass, or a framework such as Tailwind CSS (adjust this if you use a specific CSS framework).
 
-Each area can have its own navigation and dashboard while reusing shared components from a common directory (e.g. `resources/js/components/common/*`).
+These files are compiled and bundled via Laravel Mix (or Vite, if the project has migrated). The compiled assets end up in `public/js/` and `public/css/` and are linked from Blade templates using helpers like `asset()` or `mix()`.
 
----
+## Build tooling
 
-If you share your actual `resources/` tree later, this section can be updated to reflect the exact files and frameworks you use (Vue/React/Alpine, Tailwind/Bootstrap, etc.).
+The frontend build process uses:
+
+- **npm** to install JavaScript dependencies (see `package.json`).
+- **Laravel Mix** (or another build tool) to compile and bundle CSS and JavaScript.
+
+Common commands:
+
+- `npm install` – install frontend dependencies.
+- `npm run dev` – compile assets once for development.
+- `npm run watch` – compile assets and watch for changes (recommended for active development).
+- `npm run prod` – compile and minify assets for production.
+
+During development, run `npm run watch` so your changes to JavaScript and CSS are automatically recompiled.
+
+## Frontend libraries and frameworks
+
+If specific frontend libraries or frameworks are used (for example, Vue.js, Alpine.js, jQuery, or a CSS framework like Tailwind or Bootstrap), list them here briefly so new developers know what tools are available and how they are loaded into the application.
+
+(Adjust this section based on what you actually use; if it is just vanilla JS and plain CSS, you can simplify or remove this paragraph.)

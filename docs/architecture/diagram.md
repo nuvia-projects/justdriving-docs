@@ -2,53 +2,69 @@
 sidebar_position: 1
 ---
 
-# High-level system diagram
+# High-Level System Diagram
 
-Below is a simple text-based high-level diagram you can use directly in Docusaurus (for example with Markdown, or adapt it to Mermaid/PlantUML later).
+This page gives a high-level view of the Just Driving architecture, including the core application, supporting infrastructure, and the main external platforms and services it integrates with. It is intended to help new developers understand how the major parts fit together before diving into implementation details.
 
 ## Overview
 
-At a high level, Just Driving is a Laravel (PHP 7.*) web application that connects users via a browser to a MySQL-backed API, integrates with external platforms, and serves different interfaces for Admins, Teachers, and Students.
+At the center of the system is the Just Driving Laravel application, backed by a MySQL database and Redis for queues and caching. Different user types (admins, school staff/teachers, and students) access the application through the web UI and APIs. The application integrates with external platforms such as e-teori.dk and findkoreskole.dk, and with infrastructure services like Mailtrap/SparkPost for email, Twilio for SMS, and Stripe for payments.
 
-## Text diagram (ASCII)
+## Mermaid system diagram
+
+
 
 
 ```mermaid
-sequenceDiagram
-    participant Student
-    participant Browser
-    participant App as Just Driving (Laravel)
-    participant DB as MySQL
-    participant ET as e-teori.dk
-    participant FK as findkoreskole.dk
-
-    Note over Student,Browser: Student wants to book a driving lesson
-
-    Student->>Browser: Open Just Driving
-    Browser->>App: HTTP GET / (dashboard / landing)
-    App->>DB: Load driving schools, lessons, user data
-    DB-->>App: Data result
-    App-->>Browser: Render page (schools, lessons, status)
-
-    Note over Student,Browser: Student searches and selects a school
-
-    Student->>Browser: Choose driving school & lesson
-    Browser->>App: HTTP POST /bookings
-    App->>DB: Create booking record
-    DB-->>App: Booking created
-
-    alt Integration with findkoreskole.dk
-        App->>FK: Send school/lead info (optional)
-        FK-->>App: Acknowledge / response
+flowchart LR
+    subgraph Users
+        A[Admin]
+        B[School staff and teachers]
+        C[Students]
     end
 
-    alt Integration with e-teori.dk
-        App->>ET: Sync / link student (optional)
-        ET-->>App: Acknowledge / theory status
+    subgraph Core[Just Driving Core]
+        APP[Laravel application]
+        DB[(MySQL database)]
+        REDIS[(Redis queues and cache)]
     end
 
-    App-->>Browser: Booking confirmation page
-    Browser-->>Student: Show confirmation & lesson details
+    subgraph ExternalPlatforms[External platforms]
+        E[e-teori dk]
+        F[findkoreskole dk]
+    end
 
+    subgraph Infra[Infrastructure services]
+        M1[Mailtrap dev email]
+        M2[SparkPost prod email]
+        T[Twilio SMS]
+        S[Stripe payments]
+    end
+
+    A --> APP
+    B --> APP
+    C --> APP
+
+    APP --> DB
+    APP --> REDIS
+
+    APP <--> E
+    APP <--> F
+
+    APP --> M1
+    APP --> M2
+    APP --> T
+    APP --> S
 
 ```
+
+
+## Key points
+
+- All main user groups (admins, school staff/teachers, and students) interact with the Just Driving Laravel application through the web interface or APIs.
+- The application stores business data (schools, students, teachers, bookings, finances, etc.) in MySQL and uses Redis for queues and optional caching.
+- External platforms (e-teori.dk and findkoreskole.dk) integrate with Just Driving through defined data flows and APIs.
+- Infrastructure services handle cross‑cutting concerns:
+  - Mailtrap for development email and SparkPost for production email delivery.
+  - Twilio for sending SMS notifications.
+  - Stripe for handling online payments and payment-related events.

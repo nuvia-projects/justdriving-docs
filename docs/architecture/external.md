@@ -2,60 +2,66 @@
 sidebar_position: 4
 ---
 
-# External systems
+# External Systems
 
-The Just Driving platform can integrate with several categories of external systems to support real-world operations like payments, messaging, and bookkeeping. This section describes the integration points at a high level so you can plug in specific providers (Stripe, Twilio, local SMS gateways, accounting tools, etc.) as needed.
+This page describes the external platforms and services that Just Driving integrates with and how they fit into the overall architecture. Understanding these integrations is important for developers working on features that send data outside the core application or rely on external functionality.
 
-## Payment providers
+## Overview
 
-- Used for: collecting lesson fees, deposits, package payments, or subscription-style charges.
-- Typical options: Stripe, PayPal, local payment gateways, or provider-specific SDKs.
-- Integration pattern:
-  - Backend: payment service class (e.g. `App\Services\Payments\PaymentGateway`) wrapping the provider SDK and exposing methods like `createPaymentIntent`, `chargeCustomer`, `refund`, etc.
-  - Frontend: checkout or payment UI (card details, wallet, etc.) calling backend endpoints.
-  - Database: records for transactions, invoices, refunds, and payment status linked to bookings/students.
-- Configuration:
-  - API keys and secrets stored in `.env` (`PAYMENT_PROVIDER_KEY`, `PAYMENT_PROVIDER_SECRET`, etc.).
-  - Optional webhook endpoint (e.g. `/webhook/payments`) to receive asynchronous updates (success, failure, refund).
+Just Driving connects to several external systems to provide a complete experience for schools and students. These integrations can be grouped into:
 
-## SMS providers
+- **External platforms** that extend the core functionality (e-teori.dk for theory content, findkoreskole.dk for school discovery).
+- **Infrastructure services** that handle cross-cutting concerns such as email, SMS, and payments (Mailtrap/SparkPost, Twilio, Stripe).
 
-- Used for: lesson reminders, booking confirmations, cancellations, and important announcements to students/instructors.
-- Typical options: Twilio, local SMS gateways, or an SMS aggregation service.
-- Integration pattern:
-  - Laravel notifications or a dedicated SMS service class (e.g. `App\Services\Sms\SmsSender`).
-  - Single interface method such as `send(to, message)` which hides provider-specific details.
-  - Queue jobs for sending SMS asynchronously to avoid slowing down HTTP requests.
-- Configuration:
-  - Provider credentials in `.env` (e.g. `SMS_PROVIDER_KEY`, `SMS_PROVIDER_SECRET`, `SMS_FROM_NUMBER`).
-  - Optional per-environment toggles to disable real SMS in local/staging (`SMS_ENABLED=false` in non-prod).
+## External platforms
 
-## Email and notifications
+### e-teori.dk
 
-- Used for: welcome emails, booking confirmations, password resets, and administrative notifications.
-- Integration pattern:
-  - Laravel’s mail and notification system, plus any external email service (e.g. SMTP, Mailgun, SendGrid).
-  - Template-based emails stored in `resources/views/emails`.
-- Configuration:
-  - `.env` variables (`MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, etc.).
-  - Separate settings for staging vs production to avoid mailing real users from non-production environments.
+e-teori.dk is an external platform used to deliver online theory content and tests to students.
 
-## Accounting and bookkeeping (optional)
+- **Purpose**: Provide theory learning materials and tests that students need as part of their driver's licence education.
+- **Integration approach**: Just Driving links student accounts to e-teori.dk so that students registered in a school can access theory material. Progress, test results, or completion status may be synchronized back to Just Driving to track the student's overall learning journey.
+- **Configuration**: API credentials or integration details are typically stored in environment variables and Laravel config files.
 
-- Used for: syncing financial data (invoices, payments, refunds) into an accounting system.
-- Typical options: local accounting tools, cloud accounting (e.g. Xero, QuickBooks), or exported CSV integrations.
-- Integration pattern:
-  - Service class (e.g. `App\Services\Accounting\AccountingClient`) responsible for:
-    - Creating or updating customers (driving schools, individual students if applicable).
-    - Sending invoice/payment records or periodic summaries.
-  - Scheduled commands to run sync jobs (e.g. daily, hourly).
-- Configuration:
-  - API credentials in `.env` (`ACCOUNTING_API_KEY`, etc.).
-  - Feature flags to enable/disable accounting sync per environment.
+### findkoreskole.dk
 
-## Design principles for external integrations
+findkoreskole.dk is a public-facing site where potential students discover and compare driving schools.
 
-- All external systems are accessed through dedicated service classes or adapters (no raw SDK calls scattered across controllers).
-- Configuration and credentials live in environment variables, never in source control.
-- Webhooks (for payments or other providers) terminate in specific controllers and delegate to domain logic (e.g. updating booking payment status).
-- Logging and error handling are centralized to make it easy to diagnose integration problems without exposing sensitive data.
+- **Purpose**: Allow new students to find and connect with driving schools managed in Just Driving.
+- **Integration approach**: Schools in the Just Driving platform can be exposed on findkoreskole.dk, and incoming leads or student registrations are tied back to the correct school and student records in the core platform.
+- **Configuration**: Integration details (API keys, endpoints) are managed via environment variables.
+
+## Infrastructure services
+
+### Mailtrap and SparkPost (Email)
+
+Email is used for notifications, confirmations, reminders, password resets, and other communication with students, teachers, and admins.
+
+- **Mailtrap**: Used in development and testing environments to capture outgoing emails in a safe inbox so real emails are not sent.
+- **SparkPost**: Used in production to deliver emails reliably at scale.
+- **Configuration**: SMTP or API settings are managed via `.env` and `config/mail.php`. Development environments should point to Mailtrap; production environments should point to SparkPost.
+
+### Twilio (SMS)
+
+Twilio is the SMS provider used to send text messages to students and teachers for notifications, reminders, and alerts.
+
+- **Purpose**: Send SMS notifications in real-time to keep users informed about bookings, cancellations, and other important events.
+- **Configuration**: Twilio credentials (account SID, auth token, sender phone number) are stored in environment variables.
+- **Usage**: SMS sending is typically wrapped in queued jobs to avoid blocking HTTP requests.
+
+### Stripe (Payments)
+
+Stripe is the payment gateway used to handle online payments and manage payment registrations for students.
+
+- **Purpose**: Process online payments, manage subscriptions (if applicable), and track payment events via webhooks.
+- **Configuration**: Stripe API keys (public and secret) and webhook secrets are configured via environment variables.
+- **Usage**: Payment flows are typically handled in dedicated controllers or services, and webhook events (for example, successful payments, failed charges) are processed via dedicated webhook endpoints.
+
+## Integration patterns
+
+When working with external systems, Just Driving follows these general patterns:
+
+- **Environment-based configuration**: All external service credentials and endpoints are stored in `.env` and Laravel config files, never hard-coded.
+- **Background jobs**: Slow or unreliable external calls (such as sending SMS or syncing data to external platforms) are typically wrapped in queued jobs to keep the application responsive.
+- **Error handling**: External API calls may fail, so integration code should handle errors gracefully (log failures, retry where appropriate, notify users if necessary).
+- **Webhook endpoints**: Services like Stripe use webhooks to notify the application of external events. These are handled via dedicated routes and controllers that validate and process incoming webhook payloads.
