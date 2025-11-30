@@ -3,133 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
-<title data-rh="true">Entities | Just Driving</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://your-docusaurus-site.example.com/docs/data/entities"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Entities | Just Driving"><meta data-rh="true" name="description" content="This section describes the main business entities in Just Driving and how they relate conceptually. Use this together with the ER and Mermaid diagrams."><meta data-rh="true" property="og:description" content="This section describes the main business entities in Just Driving and how they relate conceptually. Use this together with the ER and Mermaid diagrams."><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://your-docusaurus-site.example.com/docs/data/entities"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/data/entities" hreflang="en"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/data/entities" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Data Model & Database Schema","item":"https://your-docusaurus-site.example.com/docs/category/data-model--database-schema"},{"@type":"ListItem","position":2,"name":"Entities","item":"https://your-docusaurus-site.example.com/docs/data/entities"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Just Driving RSS Feed">
+<title data-rh="true">Entities | Just Driving</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://your-docusaurus-site.example.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://your-docusaurus-site.example.com/docs/data/entities"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Entities | Just Driving"><meta data-rh="true" name="description" content="This page gives an overview of the main entities in the Just Driving data model. It does not list every column of every table, but instead focuses on how the core domains are represented in the database so new developers can quickly understand the shape of the system."><meta data-rh="true" property="og:description" content="This page gives an overview of the main entities in the Just Driving data model. It does not list every column of every table, but instead focuses on how the core domains are represented in the database so new developers can quickly understand the shape of the system."><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://your-docusaurus-site.example.com/docs/data/entities"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/data/entities" hreflang="en"><link data-rh="true" rel="alternate" href="https://your-docusaurus-site.example.com/docs/data/entities" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Data Model & Database Schema","item":"https://your-docusaurus-site.example.com/docs/category/data-model--database-schema"},{"@type":"ListItem","position":2,"name":"Entities","item":"https://your-docusaurus-site.example.com/docs/data/entities"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Just Driving RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Just Driving Atom Feed"><link rel="stylesheet" href="/assets/css/styles.533e473e.css">
-<script src="/assets/js/runtime~main.f4fd85d6.js" defer="defer"></script>
-<script src="/assets/js/main.310c1920.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.37600112.js" defer="defer"></script>
+<script src="/assets/js/main.716f4cb2.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
 <symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
 </defs></svg>
-<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.png" alt="Just Driving Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.png" alt="Just Driving Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/intro">Documentation</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/nuvia-projects/justdriving-docs" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbarSearchContainer_Bca1"><button type="button" class="DocSearch DocSearch-Button" aria-label="Search (Control+k)" aria-keyshortcuts="Control+k"><span class="DocSearch-Button-Container"><svg width="20" height="20" class="DocSearch-Search-Icon" viewBox="0 0 20 20"><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">Search</span></span><span class="DocSearch-Button-Keys"><span class="DocSearch-Button-Key"><svg width="15" height="15" class="DocSearch-Control-Key-Icon"><path d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953" stroke-width="1.2" stroke="currentColor" fill="none" stroke-linecap="square"></path></svg></span><span class="DocSearch-Button-Key">K</span></span></button></div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/intro"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/introduction"><span title="Introduction" class="categoryLinkLabel_W154">Introduction</span></a><button aria-label="Expand sidebar category &#x27;Introduction&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/getting-started"><span title="Getting Started" class="categoryLinkLabel_W154">Getting Started</span></a><button aria-label="Expand sidebar category &#x27;Getting Started&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/architecture"><span title="Architecture" class="categoryLinkLabel_W154">Architecture</span></a><button aria-label="Expand sidebar category &#x27;Architecture&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/docs/category/data-model--database-schema"><span title="Data Model &amp; Database Schema" class="categoryLinkLabel_W154">Data Model &amp; Database Schema</span></a><button aria-label="Collapse sidebar category &#x27;Data Model &amp; Database Schema&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/er-diagram"><span title="ER diagram" class="linkLabel_WmDU">ER diagram</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/flow"><span title="Data flow diagrams" class="linkLabel_WmDU">Data flow diagrams</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/data/entities"><span title="Entities" class="linkLabel_WmDU">Entities</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/relationship"><span title="Relationship overview" class="linkLabel_WmDU">Relationship overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/indexing"><span title="Indexing strategies" class="linkLabel_WmDU">Indexing strategies</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/permissions-matrix"><span title="Permissions Matrix" class="categoryLinkLabel_W154">Permissions Matrix</span></a><button aria-label="Expand sidebar category &#x27;Permissions Matrix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/core-modules"><span title="Core modules" class="categoryLinkLabel_W154">Core modules</span></a><button aria-label="Expand sidebar category &#x27;Core modules&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/category/data-model--database-schema"><span>Data Model &amp; Database Schema</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Entities</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Entities</h1></header>
-<p>This section describes the main business entities in Just Driving and how they relate conceptually. Use this together with the ER and Mermaid diagrams.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="student">Student<a href="#student" class="hash-link" aria-label="Direct link to Student" title="Direct link to Student" translate="no">​</a></h2>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.png" alt="Just Driving Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.png" alt="Just Driving Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/nuvia-projects/justdriving-docs" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="navbarSearchContainer_Bca1"><button type="button" class="DocSearch DocSearch-Button" aria-label="Search (Control+k)" aria-keyshortcuts="Control+k"><span class="DocSearch-Button-Container"><svg width="20" height="20" class="DocSearch-Search-Icon" viewBox="0 0 20 20"><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">Search</span></span><span class="DocSearch-Button-Keys"><span class="DocSearch-Button-Key"><svg width="15" height="15" class="DocSearch-Control-Key-Icon"><path d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953" stroke-width="1.2" stroke="currentColor" fill="none" stroke-linecap="square"></path></svg></span><span class="DocSearch-Button-Key">K</span></span></button></div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/introduction"><span title="Introduction" class="categoryLinkLabel_W154">Introduction</span></a><button aria-label="Expand sidebar category &#x27;Introduction&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/getting-started"><span title="Getting Started" class="categoryLinkLabel_W154">Getting Started</span></a><button aria-label="Expand sidebar category &#x27;Getting Started&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/architecture"><span title="Architecture" class="categoryLinkLabel_W154">Architecture</span></a><button aria-label="Expand sidebar category &#x27;Architecture&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/docs/category/data-model--database-schema"><span title="Data Model &amp; Database Schema" class="categoryLinkLabel_W154">Data Model &amp; Database Schema</span></a><button aria-label="Collapse sidebar category &#x27;Data Model &amp; Database Schema&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/data/entities"><span title="Entities" class="linkLabel_WmDU">Entities</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/relationship"><span title="Relationship Overview" class="linkLabel_WmDU">Relationship Overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/er-diagram"><span title="ER Diagrams" class="linkLabel_WmDU">ER Diagrams</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/flow"><span title="Data Flow Diagrams" class="linkLabel_WmDU">Data Flow Diagrams</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/data/indexing"><span title="Indexing Strategies" class="linkLabel_WmDU">Indexing Strategies</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/permissions-matrix"><span title="Permissions Matrix" class="categoryLinkLabel_W154">Permissions Matrix</span></a><button aria-label="Expand sidebar category &#x27;Permissions Matrix&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist" href="/docs/category/core-modules"><span title="Core modules" class="categoryLinkLabel_W154">Core modules</span></a><button aria-label="Expand sidebar category &#x27;Core modules&#x27;" aria-expanded="false" type="button" class="clean-btn menu__caret"></button></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/category/data-model--database-schema"><span>Data Model &amp; Database Schema</span></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Entities</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Entities</h1></header>
+<p>This page gives an overview of the main entities in the Just Driving data model. It does not list every column of every table, but instead focuses on how the core domains are represented in the database so new developers can quickly understand the shape of the system.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="schools-and-organization">Schools and organization<a href="#schools-and-organization" class="hash-link" aria-label="Direct link to Schools and organization" title="Direct link to Schools and organization" translate="no">​</a></h2>
+<p>These entities represent driving schools and their internal structure:</p>
 <ul>
-<li class="">Represents a person learning to drive, associated with one driving school.</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Personal info (name, contact, address, birthdate).</li>
-<li class="">Linked to one or more classes (holds) and many bookings.</li>
-<li class="">Can submit ratings/reviews for schools.</li>
-</ul>
+<li class="">
+<p><strong>School</strong><br>
+<!-- -->Represents a driving school as a tenant in the system. Stores core information such as name, contact details, branding, settings, and integration configuration (for example, pricing, API visibility, payment setup).</p>
+</li>
+<li class="">
+<p><strong>School department</strong><br>
+<!-- -->Represents branches or departments within a school. Stores localized contact information (address, phone, email) and is used to group classes, teachers, and students under a specific branch.</p>
+</li>
+<li class="">
+<p><strong>School–teacher link</strong><br>
+<!-- -->Connects teachers to schools (and optionally to specific departments). Tracks status/role and allows a single teacher to be associated with one or more schools.</p>
+</li>
+<li class="">
+<p><strong>School–student link</strong><br>
+<!-- -->Connects students to schools and optionally assigns them to a primary teacher. Tracks the student’s status within a school (for example active/inactive).</p>
+</li>
+<li class="">
+<p><strong>School settings</strong><br>
+<!-- -->Stores configuration flags and options for each school, such as SMS settings, terms of service, privacy policy, and behavior for various features.</p>
+</li>
+<li class="">
+<p><strong>School email settings</strong><br>
+<!-- -->Stores per‑school email behavior and template references (for example, which email template to use for registration, reminders, or other events).</p>
 </li>
 </ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="teacher">Teacher<a href="#teacher" class="hash-link" aria-label="Direct link to Teacher" title="Direct link to Teacher" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="users-and-actors">Users and actors<a href="#users-and-actors" class="hash-link" aria-label="Direct link to Users and actors" title="Direct link to Users and actors" translate="no">​</a></h2>
+<p>These entities represent the different types of users that interact with the system:</p>
 <ul>
-<li class="">Represents a driving instructor employed by a driving school.</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Personal and contact info.</li>
-<li class="">Belongs to a specific school (and optionally a department).</li>
-<li class="">Has a schedule made up of bookings and may be attached to classes (hold).</li>
-</ul>
+<li class="">
+<p><strong>Admin</strong><br>
+<!-- -->Represents global administrators who manage the overall platform (not tied to a single school). Used for platform-level configuration and oversight.</p>
+</li>
+<li class="">
+<p><strong>Teacher</strong><br>
+<!-- -->Represents driving instructors and school staff. Stores contact information, company/registration details (if applicable), and login credentials. Teachers are linked to schools and departments and are referenced in bookings, lesson plans, and payments.</p>
+</li>
+<li class="">
+<p><strong>Student</strong><br>
+<!-- -->Represents students who are working towards a driver’s licence. Stores personal and contact information, language, progress data (for example, passed courses/tests), and login credentials. Students are linked to schools, departments, classes, bookings, invoices, and payments.</p>
+</li>
+<li class="">
+<p><strong>Notifications and password resets</strong><br>
+<!-- -->Entities such as notification records and password reset tokens support user communication and authentication flows.</p>
 </li>
 </ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="school">School<a href="#school" class="hash-link" aria-label="Direct link to School" title="Direct link to School" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="education-and-lesson-planning">Education and lesson planning<a href="#education-and-lesson-planning" class="hash-link" aria-label="Direct link to Education and lesson planning" title="Direct link to Education and lesson planning" translate="no">​</a></h2>
+<p>These entities cover lesson plans, modules, and educational content:</p>
 <ul>
-<li class="">Represents a driving school using Just Driving.</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">School profile (name, CVR, address, contact info).</li>
-<li class="">One school has:<!-- -->
-<ul>
-<li class="">Many departments.</li>
-<li class="">Many students and teachers.</li>
-<li class="">Many classes (hold), bookings, booking types, and ratings.</li>
-</ul>
+<li class="">
+<p><strong>Lesson plan</strong><br>
+<!-- -->Represents a structured plan of lessons for a given category (for example, driver’s licence type). It is usually attached to classes or schools and defines the overall structure of the education.</p>
 </li>
-<li class="">School-level settings (email templates, reminder behavior, etc. in related tables).</li>
-</ul>
+<li class="">
+<p><strong>Lesson plan module</strong><br>
+<!-- -->Represents a module or section within a lesson plan (for example a sequence of theory or practical lessons). Includes metadata such as type, order, number of lessons, and notes.</p>
 </li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="class-hold">Class (Hold)<a href="#class-hold" class="hash-link" aria-label="Direct link to Class (Hold)" title="Direct link to Class (Hold)" translate="no">​</a></h2>
-<ul>
-<li class="">Represents a teaching group or course at a school (e.g. a theory class or package).</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Belongs to one school (and optionally a department and teacher).</li>
-<li class="">Has configuration: max students, start/end dates and times, price, signup fee, category, status.</li>
-<li class="">Linked to many students via a join table and can be linked to bookings (for class sessions).</li>
-</ul>
+<li class="">
+<p><strong>Lesson plan module pensum / pensum and pensum parts</strong><br>
+<!-- -->Represent the educational curriculum requirements (pensum) and link them to specific modules. Used to ensure that required topics are covered and tracked.</p>
 </li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="lessonplan">LessonPlan<a href="#lessonplan" class="hash-link" aria-label="Direct link to LessonPlan" title="Direct link to LessonPlan" translate="no">​</a></h2>
-<ul>
-<li class="">Represents a structured lesson plan or course plan attached to a class or school.</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">May reference default lesson plan structures (templates) and modules.</li>
-<li class="">Used to define the sequence and content of teaching (e.g. theory and practical modules).</li>
-<li class="">Can be attached to school classes to standardize what students go through.</li>
-</ul>
+<li class="">
+<p><strong>Lesson plan module signatures and repetitions</strong><br>
+<!-- -->Track when modules are taught, repeated, and signed off by students and teachers (including timestamps and signatures). These entities provide an auditable record of teaching and completion.</p>
+</li>
+<li class="">
+<p><strong>Default lesson plans and modules</strong><br>
+<!-- -->Represent reusable, generic lesson plan templates that can be attached to specific booking types or schools and used as starting points for concrete lesson plans.</p>
+</li>
+<li class="">
+<p><strong>Education / education lessons / education sessions</strong><br>
+<!-- -->Represent educational content and lessons that can be presented (for example, slides, videos, and structured sessions), along with active sessions used in a class or live teaching context.</p>
 </li>
 </ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="booking">Booking<a href="#booking" class="hash-link" aria-label="Direct link to Booking" title="Direct link to Booking" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="classes-bookings-and-attendance">Classes, bookings, and attendance<a href="#classes-bookings-and-attendance" class="hash-link" aria-label="Direct link to Classes, bookings, and attendance" title="Direct link to Classes, bookings, and attendance" translate="no">​</a></h2>
+<p>These entities drive scheduling and participation:</p>
 <ul>
-<li class="">Represents a scheduled activity between a student and a teacher/school (lesson, class session, etc.).</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Belongs to a school and a teacher and can be linked to a class and booking type.</li>
-<li class="">Has time period (start, end), status, and location.</li>
-<li class="">Linked to one or more students via a separate booking-student relation.</li>
-<li class="">Can be associated with payments and notifications.</li>
-</ul>
+<li class="">
+<p><strong>School class</strong><br>
+<!-- -->Represents a course or class group within a school (for example, a specific start date, schedule, and capacity). Stores information such as name, max students, price, attached lesson plan, status, and completion date.</p>
+</li>
+<li class="">
+<p><strong>School class–student link</strong><br>
+<!-- -->Associates students with classes, defining which class a student is enrolled in.</p>
+</li>
+<li class="">
+<p><strong>Booking</strong><br>
+<!-- -->Represents a scheduled event such as a driving lesson, theory lesson, or other session. Stores the school, teacher, time range, booking type, license type, location, and status (for example, active, public, cancelled).</p>
+</li>
+<li class="">
+<p><strong>Booking type</strong><br>
+<!-- -->Describes types of bookings (for example, single driving lesson, package, theory session), including pricing, salary parameters, and cancellation rules.</p>
+</li>
+<li class="">
+<p><strong>Booking–student link</strong><br>
+<!-- -->Associates students with individual bookings and tracks their participation and status (for example, booked, cancelled).</p>
 </li>
 </ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="booking-type">Booking Type<a href="#booking-type" class="hash-link" aria-label="Direct link to Booking Type" title="Direct link to Booking Type" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="finance-and-payments">Finance and payments<a href="#finance-and-payments" class="hash-link" aria-label="Direct link to Finance and payments" title="Direct link to Finance and payments" translate="no">​</a></h2>
+<p>These entities handle financial aspects for schools and students:</p>
 <ul>
-<li class="">Represents the type/category of a booking (e.g. practical lesson, theory lesson, test drive).</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Belongs to a school.</li>
-<li class="">Defines default duration, category, and price for bookings of that type.</li>
-<li class="">Used when creating bookings to standardize behavior and pricing.</li>
-</ul>
+<li class="">
+<p><strong>Invoice services</strong><br>
+<!-- -->Represents services that can be included on invoices (name, VAT, amount).</p>
+</li>
+<li class="">
+<p><strong>Student invoice</strong><br>
+<!-- -->Represents a specific invoice assigned to a student and tied to a school and teacher. Can be linked to products or specific entities (for example, class signup, lesson package).</p>
+</li>
+<li class="">
+<p><strong>Student invoice data</strong><br>
+<!-- -->Represents individual line items and amounts on an invoice, including any cancellation fees.</p>
+</li>
+<li class="">
+<p><strong>Student payment</strong><br>
+<!-- -->Represents payments made by students (amount, method, date, invoice reference, and potential subscription information).</p>
+</li>
+<li class="">
+<p><strong>Student balance</strong><br>
+<!-- -->Tracks the aggregated financial balance for a student within a school, based on invoices and payments.</p>
+</li>
+<li class="">
+<p><strong>Teacher payment</strong><br>
+<!-- -->Represents amounts owed or paid to teachers for their work, linked to bookings, lesson types, and salary rules.</p>
 </li>
 </ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="invoice-conceptual">Invoice (conceptual)<a href="#invoice-conceptual" class="hash-link" aria-label="Direct link to Invoice (conceptual)" title="Direct link to Invoice (conceptual)" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="content-support-and-attachments">Content, support, and attachments<a href="#content-support-and-attachments" class="hash-link" aria-label="Direct link to Content, support, and attachments" title="Direct link to Content, support, and attachments" translate="no">​</a></h2>
+<p>These entities store supporting content and documents:</p>
 <ul>
-<li class="">Represents billing documents for students or schools.</li>
-<li class="">Even if not a separate table in the current schema, conceptually includes:<!-- -->
-<ul>
-<li class="">Reference to student, school, and one or more bookings.</li>
-<li class="">Amounts, due dates, and status (draft, sent, paid, cancelled).</li>
-</ul>
+<li class="">
+<p><strong>School attachments / teacher attachments / student attachments</strong><br>
+<!-- -->Store file metadata (title, name, type, mime, size) for files attached to schools, teachers, and students (for example, documents, images, forms).</p>
 </li>
-<li class="">Payment records can be linked to invoices or directly to bookings depending on your implementation.</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="payment">Payment<a href="#payment" class="hash-link" aria-label="Direct link to Payment" title="Direct link to Payment" translate="no">​</a></h2>
-<ul>
-<li class="">Represents a financial transaction related to one booking (or invoice).</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Belongs to a booking.</li>
-<li class="">Stores amount, currency, status (pending, paid, refunded), provider, and provider reference.</li>
-<li class="">Used to track whether a booking has been paid and via which channel.</li>
-</ul>
+<li class="">
+<p><strong>Student notes / teacher notes</strong><br>
+<!-- -->Store free‑text notes about students and teachers, usually visible to internal staff.</p>
+</li>
+<li class="">
+<p><strong>Support sections and videos</strong><br>
+<!-- -->Represent internal support content and tutorial videos grouped into sections for easier navigation.</p>
 </li>
 </ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="rating">Rating<a href="#rating" class="hash-link" aria-label="Direct link to Rating" title="Direct link to Rating" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tests-and-progress-tracking">Tests and progress tracking<a href="#tests-and-progress-tracking" class="hash-link" aria-label="Direct link to Tests and progress tracking" title="Direct link to Tests and progress tracking" translate="no">​</a></h2>
+<p>These entities represent student testing and theory progress:</p>
 <ul>
-<li class="">Represents feedback from a student about a school.</li>
-<li class="">Key concepts:<!-- -->
-<ul>
-<li class="">Belongs to a school and a student.</li>
-<li class="">Contains numeric rating and optional comment.</li>
-<li class="">Used to measure quality and student satisfaction.</li>
-</ul>
+<li class="">
+<p><strong>Student theory test answers</strong><br>
+<!-- -->Store results of theory tests taken by students, including number of errors and question data.</p>
 </li>
-</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/data/entities.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/data/flow"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Data flow diagrams</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/data/relationship"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Relationship overview</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#student" class="table-of-contents__link toc-highlight">Student</a></li><li><a href="#teacher" class="table-of-contents__link toc-highlight">Teacher</a></li><li><a href="#school" class="table-of-contents__link toc-highlight">School</a></li><li><a href="#class-hold" class="table-of-contents__link toc-highlight">Class (Hold)</a></li><li><a href="#lessonplan" class="table-of-contents__link toc-highlight">LessonPlan</a></li><li><a href="#booking" class="table-of-contents__link toc-highlight">Booking</a></li><li><a href="#booking-type" class="table-of-contents__link toc-highlight">Booking Type</a></li><li><a href="#invoice-conceptual" class="table-of-contents__link toc-highlight">Invoice (conceptual)</a></li><li><a href="#payment" class="table-of-contents__link toc-highlight">Payment</a></li><li><a href="#rating" class="table-of-contents__link toc-highlight">Rating</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Just Driving.</div></div></div></footer></div>
+<li class="">
+<p><strong>Ratings</strong><br>
+<!-- -->Represent ratings given by students to schools (for example, review score and comments).</p>
+</li>
+<li class="">
+<p><strong>Student actions</strong><br>
+<!-- -->Record important actions taken by or on behalf of students for audit and tracking purposes.</p>
+</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="signatures-and-audit-trail">Signatures and audit trail<a href="#signatures-and-audit-trail" class="hash-link" aria-label="Direct link to Signatures and audit trail" title="Direct link to Signatures and audit trail" translate="no">​</a></h2>
+<p>These entities support signatures and control:</p>
+<ul>
+<li class="">
+<p><strong>Signatures</strong><br>
+<!-- -->Represent stored signatures (for example images or references) including who signed, when, and in what context.</p>
+</li>
+<li class="">
+<p><strong>Lesson plan module signatures</strong><br>
+<!-- -->Link signatures to specific modules, students, teachers, and teaching dates, forming part of the legal/compliance trail.</p>
+</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/data/entities.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/category/data-model--database-schema"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Data Model &amp; Database Schema</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/data/relationship"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Relationship Overview</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#schools-and-organization" class="table-of-contents__link toc-highlight">Schools and organization</a></li><li><a href="#users-and-actors" class="table-of-contents__link toc-highlight">Users and actors</a></li><li><a href="#education-and-lesson-planning" class="table-of-contents__link toc-highlight">Education and lesson planning</a></li><li><a href="#classes-bookings-and-attendance" class="table-of-contents__link toc-highlight">Classes, bookings, and attendance</a></li><li><a href="#finance-and-payments" class="table-of-contents__link toc-highlight">Finance and payments</a></li><li><a href="#content-support-and-attachments" class="table-of-contents__link toc-highlight">Content, support, and attachments</a></li><li><a href="#tests-and-progress-tracking" class="table-of-contents__link toc-highlight">Tests and progress tracking</a></li><li><a href="#signatures-and-audit-trail" class="table-of-contents__link toc-highlight">Signatures and audit trail</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Just Driving.</div></div></div></footer></div>
 </body>
 </html>

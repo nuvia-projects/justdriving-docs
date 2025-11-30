@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkjustdriving=globalThis.webpackChunkjustdriving||[]).push([[2634],{192:(t,u,n)=>{n.r(u),n.d(u,{default:()=>i});var c=n(6540),e=n(6347);function i(){const t=(0,e.W6)();return(0,c.useEffect)(()=>{t.replace("/docs/category/introduction")},[t]),null}}}]);
